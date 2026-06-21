@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getSite, getArtist } from '../lib/data.js'
+
+const site   = getSite()
+const artist = getArtist()
+const base   = import.meta.env.BASE_URL
+const hasPhoto = artist.photo && artist.photo.trim() !== ''
+---
+
+<Layout title="About">
+  <article class="about">
+
+    {hasPhoto ? (
+      <div class="about-hero split">
+        <div class="about-photo-wrap">
+          <img
+            src={`${base}images/${artist.photo}`}
+            alt={`Portrait of ${artist.name}`}
+            class="about-photo"
+          />
+        </div>
+        <div class="about-intro">
+          <p class="about-label">About the Artist</p>
+          <h1 class="about-name">{artist.name}</h1>
+          <p class="about-tagline">{artist.tagline}</p>
+          <div class="about-bio">
+            {artist.bio.trim().split('\n\n').map((para: string) => (
+              <p>{para.trim()}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div class="about-hero centered">
+        <p class="about-label">About the Artist</p>
+        <h1 class="about-name">{artist.name}</h1>
+        <p class="about-tagline">{artist.tagline}</p>
+        <div class="about-bio centered-bio">
+          {artist.bio.trim().split('\n\n').map((para: string) => (
+            <p>{para.trim()}</p>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {artist.statement && (
+      <section class="about-statement">
+        <div class="statement-inner">
+          <p class="about-label">Artist Statement</p>
+          <blockquote>
+            {artist.statement.trim().split('\n\n').map((para: string) => (
+              <p>{para.trim()}</p>
+            ))}
+          </blockquote>
+        </div>
+      </section>
+    )}
+
+  </article>
+</Layout>
+
+<style>
+  .about {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem 6rem;
+  }
+
+  .about-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Split layout (with photo) */
+  .about-hero.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    padding-bottom: 5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-photo-wrap {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    filter: grayscale(10%);
+  }
+
+  /* Centered layout (no photo) */
+  .about-hero.centered {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-hero.centered .about-label { text-align: center; }
+
+  .centered-bio {
+    text-align: left;
+    margin-top: 2rem;
+  }
+
+  .about-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .about-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a3632;
+  }
+
+  /* Statement section */
+  .about-statement {
+    padding: 5rem 0;
+  }
+
+  .statement-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  blockquote {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: #4a4540;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .about-hero.split {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-photo-wrap {
+      position: static;
+      max-width: 420px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about {
+      padding: 3rem 1.25rem 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getExhibitions } from '../lib/data.js'
+
+const all = getExhibitions() ?? []
+
+const current  = all.filter((e: any) => e.status === 'current')
+const upcoming = all.filter((e: any) => e.status === 'upcoming')
+const past     = all.filter((e: any) => e.status === 'past')
+
+function formatDate(str: string) {
+  if (!str) return ''
+  const d = new Date(str + 'T00:00:00')
+  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+}
+
+function dateRange(e: any) {
+  const s = formatDate(e.start)
+  const en = formatDate(e.end)
+  if (!s && !en) return ''
+  if (!en || s === en) return s
+  return `${s} – ${en}`
+}
+---
+
+<Layout title="Exhibitions">
+  <div class="exhibitions-page">
+    <section class="page-header">
+      <h1>Exhibitions</h1>
+    </section>
+
+    {current.length > 0 && (
+      <section class="ex-section">
+        <h2 class="ex-group-label">Current</h2>
+        <ul class="ex-list">
+          {current.map((e: any) => (
+            <li class="ex-item">
+              <div class="ex-dates">{dateRange(e)}</div>
+              <div class="ex-body">
+                <h3 class="ex-title">{e.title}</h3>
+                <p class="ex-venue">{e.venue}{e.location ? `, ${e.location}` : ''}</p>
+                {e.description && <p class="ex-desc">{e.description}</p>}
+              </div>
+              <span class="ex-badge current">Current</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {upcoming.length > 0 && (
+      <section class="ex-section">
+        <h2 class="ex-group-label">Upcoming</h2>
+        <ul class="ex-list">
+          {upcoming.map((e: any) => (
+            <li class="ex-item">
+              <div class="ex-dates">{dateRange(e)}</div>
+              <div class="ex-body">
+                <h3 class="ex-title">{e.title}</h3>
+                <p class="ex-venue">{e.venue}{e.location ? `, ${e.location}` : ''}</p>
+                {e.description && <p class="ex-desc">{e.description}</p>}
+              </div>
+              <span class="ex-badge upcoming">Upcoming</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {past.length > 0 && (
+      <section class="ex-section">
+        <h2 class="ex-group-label">Past</h2>
+        <ul class="ex-list">
+          {past.map((e: any) => (
+            <li class="ex-item past">
+              <div class="ex-dates">{dateRange(e)}</div>
+              <div class="ex-body">
+                <h3 class="ex-title">{e.title}</h3>
+                <p class="ex-venue">{e.venue}{e.location ? `, ${e.location}` : ''}</p>
+                {e.description && <p class="ex-desc">{e.description}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {all.length === 0 && (
+      <p class="empty">No exhibitions listed yet.</p>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .exhibitions-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2.5rem 6rem;
+  }
+
+  .page-header {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+
+  .ex-section {
+    margin-bottom: 4rem;
+  }
+
+  .ex-group-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .ex-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ex-item {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .ex-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ex-dates {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding-top: 3px;
+    line-height: 1.5;
+  }
+
+  .ex-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-bottom: 0.35rem;
+  }
+
+  .ex-venue {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .ex-desc {
+    font-size: 0.88rem;
+    color: #5a5550;
+    line-height: 1.65;
+    margin-top: 0.5rem;
+  }
+
+  .ex-item.past .ex-title { color: var(--muted); }
+
+  .ex-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: 3px;
+  }
+
+  .ex-badge.current  { background: #e8f0e4; color: #4a7040; }
+  .ex-badge.upcoming { background: #e8eaf4; color: #404878; }
+
+  .empty {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 2rem 0;
+  }
+
+  @media (max-width: 680px) {
+    .exhibitions-page { padding: 0 1.25rem 4rem; }
+
+    .ex-item {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 0.5rem;
+    }
+
+    .ex-badge { width: fit-content; }
+  }
+</style>

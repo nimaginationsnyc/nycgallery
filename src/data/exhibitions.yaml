@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────────────────
+# EXHIBITIONS
+#
+# status options: "current", "upcoming", "past"
+#
+# Dates use YYYY-MM-DD format.
+# description is optional — remove the line to hide it.
+# ─────────────────────────────────────────────────────────
+
+- title: "New Works 2024"
+  venue: "Studio Open House"
+  location: "New York, NY"
+  start: "2024-11-01"
+  end: "2024-11-30"
+  status: "past"
+  description: "A selection of recent oils and drawings shown in the artist's studio."
+
+- title: "Group Show: City Light"
+  venue: "Example Gallery"
+  location: "Brooklyn, NY"
+  start: "2023-05-12"
+  end: "2023-06-15"
+  status: "past"
+  description: ""

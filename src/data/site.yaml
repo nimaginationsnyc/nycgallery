@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────────────────
+# SITE CONFIGURATION
+# Edit these values to update the site name, contact, and
+# social media links. Lines starting with # are comments
+# and are ignored.
+# ─────────────────────────────────────────────────────────
+
+name: "Nimaginationsnyc"
+tagline: "Original Works · New York City"
+
+# The email address shown on the Contact page
+email: "contact@nimaginationsnyc.com"
+
+# Your location (shown in footer and About page)
+location: "New York City"
+
+# Copyright name shown in the footer
+copyright: "Nimaginationsnyc"
+
+# Social media links — remove a line (or leave blank) to hide that icon
+social:
+  instagram: "https://instagram.com/nimaginationsnyc"
+  # facebook: ""
+  # twitter: ""

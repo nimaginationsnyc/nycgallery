@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getSite } from '../lib/data.js'
+
+const site = getSite()
+---
+
+<Layout title="Contact">
+  <div class="contact-page">
+    <section class="page-header">
+      <h1>Get In Touch</h1>
+    </section>
+
+    <div class="contact-body">
+      <div class="contact-left">
+        <p class="contact-intro">
+          For purchase inquiries, commissions, or any questions about the work,
+          please reach out by email. I look forward to hearing from you.
+        </p>
+
+        <a class="contact-email" href={`mailto:${site.email}`}>
+          {site.email}
+        </a>
+
+        {site.social && (
+          <div class="contact-social">
+            <p class="social-label">Follow the Work</p>
+            <div class="social-links">
+              {site.social.instagram && (
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" class="social-link">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" stroke-width="2"/>
+                  </svg>
+                  <span>Instagram</span>
+                </a>
+              )}
+              {site.social.facebook && (
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" class="social-link">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+              )}
+              {site.social.twitter && (
+                <a href={site.social.twitter} target="_blank" rel="noopener noreferrer" class="social-link">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                  <span>Twitter / X</span>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div class="contact-right">
+        <div class="contact-info-block">
+          <p class="info-label">Studio</p>
+          <p class="info-value">{site.location}</p>
+        </div>
+        <div class="contact-info-block">
+          <p class="info-label">Inquiries</p>
+          <p class="info-value">Paintings are sold directly from the studio.<br />No gallery commission.</p>
+        </div>
+        <div class="contact-info-block">
+          <p class="info-label">Commissions</p>
+          <p class="info-value">Custom commissions accepted.<br />Please inquire by email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .contact-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem 6rem;
+  }
+
+  .page-header {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+
+  .contact-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #3a3632;
+    margin-bottom: 2.5rem;
+    max-width: 42ch;
+  }
+
+  .contact-email {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .contact-email:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .contact-social {
+    margin-top: 3rem;
+  }
+
+  .social-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .social-link:hover { color: var(--text); }
+
+  /* Right column */
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .contact-info-block {
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+  }
+
+  .info-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .info-value {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #3a3632;
+  }
+
+  @media (max-width: 768px) {
+    .contact-page { padding: 0 1.25rem 4rem; }
+    .contact-body { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>

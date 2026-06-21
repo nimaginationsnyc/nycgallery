@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Lightbox from '../components/Lightbox.astro'
+import { getSite, getArtworks } from '../lib/data.js'
+
+const site = getSite()
+const raw  = getArtworks()
+const base = import.meta.env.BASE_URL
+
+// Featured first, then by year descending
+const artworks = [...raw].sort((a, b) => {
+  if (a.featured && !b.featured) return -1
+  if (!a.featured && b.featured) return 1
+  return (b.year ?? 0) - (a.year ?? 0)
+})
+
+// Attach full image URLs for the lightbox
+const artworksWithUrls = artworks.map(aw => ({
+  ...aw,
+  imageUrl: `${base}images/${aw.image}`,
+}))
+---
+
+<Layout title="Gallery">
+  <section class="page-header">
+    <h1>Selected Works</h1>
+    <p class="subtitle">{site.tagline}</p>
+  </section>
+
+  <div class="gallery-grid" id="gallery-grid">
+    {artworksWithUrls.map((aw, i) => (
+      <button
+        class="gallery-item"
+        data-index={i}
+        aria-label={`View ${aw.title}`}
+        onclick={`window.__lbOpen(${i})`}
+      >
+        <div class="gallery-img-wrap">
+          <img
+            src={aw.imageUrl}
+            alt={aw.title}
+            loading={i < 4 ? 'eager' : 'lazy'}
+          />
+        </div>
+        <div class="gallery-overlay">
+          <span class="overlay-title">{aw.title}</span>
+          <span class="overlay-year">{aw.year}</span>
+        </div>
+      </button>
+    ))}
+  </div>
+
+  <Lightbox artworks={artworksWithUrls} contactUrl={`${base}contact`} />
+</Layout>
+
+<style>
+  .page-header {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+
+  .subtitle {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Masonry grid via CSS columns */
+  .gallery-grid {
+    columns: 3;
+    column-gap: 1.5rem;
+    padding: 0 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+    display: block;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .gallery-img-wrap {
+    overflow: hidden;
+    background: var(--border);
+    /* Placeholder tint while image loads */
+    min-height: 120px;
+  }
+
+  .gallery-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s var(--ease);
+  }
+
+  .gallery-item:hover .gallery-img-wrap img {
+    transform: scale(1.04);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem 1.1rem 1rem;
+    background: linear-gradient(to top, rgba(14,13,12,0.7) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .overlay-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: #f5f0e8;
+    line-height: 1.2;
+  }
+
+  .overlay-year {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: #a09a90;
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 1024px) {
+    .gallery-grid { columns: 2; }
+  }
+
+  @media (max-width: 600px) {
+    .gallery-grid {
+      columns: 1;
+      padding: 0 1.25rem;
+    }
+
+    .gallery-overlay { opacity: 1; }
+  }
+</style>

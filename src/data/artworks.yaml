@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────────────────
+# ARTWORKS
+#
+# To add a new piece:
+#  1. Upload the image file to public/images/ on GitHub
+#  2. Copy one of the entries below and fill in your details
+#  3. Commit the change — the site rebuilds automatically
+#
+# Fields:
+#   title     — name of the piece (required)
+#   image     — filename inside public/images/ (required)
+#   medium    — e.g. "Oil on canvas", "Watercolor on paper"
+#   size      — dimensions, e.g. "24 × 36 in"
+#   year      — year completed
+#   available — true if for sale, false if sold or NFS
+#   featured  — true to pin this piece to the top of the gallery
+# ─────────────────────────────────────────────────────────
+
+- title: "Evening Light, Hudson"
+  image: "placeholder-1.jpg"
+  medium: "Oil on canvas"
+  size: "30 × 40 in"
+  year: 2024
+  available: true
+  featured: true
+
+- title: "Quiet Morning"
+  image: "placeholder-2.jpg"
+  medium: "Oil on canvas"
+  size: "16 × 20 in"
+  year: 2024
+  available: true
+  featured: false
+
+- title: "Brooklyn in Winter"
+  image: "placeholder-3.jpg"
+  medium: "Charcoal on paper"
+  size: "18 × 24 in"
+  year: 2023
+  available: false
+  featured: false
+
+- title: "Study in Blue"
+  image: "placeholder-4.jpg"
+  medium: "Watercolor on paper"
+  size: "12 × 16 in"
+  year: 2023
+  available: true
+  featured: false
+
+- title: "Central Park, October"
+  image: "placeholder-5.jpg"
+  medium: "Oil on linen"
+  size: "24 × 30 in"
+  year: 2023
+  available: false
+  featured: true
+
+- title: "Still Life with Peonies"
+  image: "placeholder-6.jpg"
+  medium: "Oil on canvas"
+  size: "20 × 24 in"
+  year: 2022
+  available: true
+  featured: false

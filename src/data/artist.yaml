@@ -1,0 +1,35 @@
+# ─────────────────────────────────────────────────────────
+# ABOUT THE ARTIST
+# Edit this file to update the About page.
+# The | symbol means the text continues on the next lines.
+# ─────────────────────────────────────────────────────────
+
+name: "Artist Name"
+tagline: "Painter · New York City"
+
+# Path to artist photo — place the file in public/images/
+# Remove this line (or comment it out) if you have no photo yet
+photo: "artist.jpg"
+
+bio: |
+  Born and raised in New York City, I have spent decades
+  exploring the interplay of light, color, and urban life
+  through painting and drawing. My work is rooted in
+  careful observation — the way afternoon sun catches
+  a Manhattan facade, the stillness of a Hudson River
+  morning, the energy of a city that never quite rests.
+
+  I work primarily in oils and charcoal, drawn to the
+  richness and depth these mediums offer. Each piece
+  begins with long hours of looking before a single mark
+  is made. I believe in taking time.
+
+statement: |
+  Painting is my way of slowing down. In a city defined
+  by pace, my studio is a place of deliberate quiet.
+  I am interested in what persists beneath the surface
+  of things — the emotional weight of a particular light
+  at a particular hour.
+
+  I hope these works invite the viewer to pause,
+  and to see something familiar as if for the first time.
