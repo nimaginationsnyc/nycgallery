@@ -3,7 +3,7 @@
 A clean, elegant portfolio site for original paintings and drawings.
 Built with [Astro](https://astro.build) and hosted on GitHub Pages.
 
-**Live site:** https://nimaginationsnyc.github.io/nycgallery
+**Live site:** https://nimaginationsnyc.github.io
 
 ---
 
@@ -92,10 +92,9 @@ Edit `src/data/exhibitions.yaml`. Add an entry at the top:
 
 ## Switching to a custom domain
 
-1. In `astro.config.mjs`, change:
+1. In `astro.config.mjs`, update `site`:
    ```js
    site: 'https://yourdomain.com',
-   base: '/',
    ```
 2. Add a file named `CNAME` in the `public/` folder containing just your domain:
    ```
@@ -115,7 +114,7 @@ npm install
 npm run dev
 ```
 
-Opens at http://localhost:4321/nycgallery
+Opens at http://localhost:4321
 
 ```bash
 npm run build    # production build → dist/
