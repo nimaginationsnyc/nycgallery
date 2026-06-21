@@ -1,11 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Lightbox from '../components/Lightbox.astro'
-import { getSite, getArtworks } from '../lib/data.js'
+import { getSite, getArtworks, base } from '../lib/data.js'
 
 const site = getSite()
 const raw  = getArtworks()
-const base = import.meta.env.BASE_URL
 
 // Featured first, then by year descending
 const artworks = [...raw].sort((a, b) => {

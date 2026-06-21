@@ -1,8 +1,7 @@
 ---
-import { getSite } from '../lib/data.js'
+import { getSite, base } from '../lib/data.js'
 
 const site = getSite()
-const base = import.meta.env.BASE_URL
 const path = Astro.url.pathname
 
 function active(href: string) {
